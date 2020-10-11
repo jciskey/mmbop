@@ -740,10 +740,11 @@ class RNDC:
         file_name = self.write_zone_file(zone_name, empty_zone_file)
         if not file_name:
             return (False, 'Unable to place zone file in named directory. Check permissions.')
+        file_path = self.info['namedir'] + file_name
         add_commands = 'addzone ' + zone_name + ' '
         if self.info['view']:
             add_commands += 'IN ' + self.info['view'] + ' '
-        add_commands += ' { type master; file "' + file_name + '"; '
+        add_commands += ' { type master; file "' + file_path + '"; '
         for opt_line in self.info['options']:
             add_commands += opt_line + ' '
         add_commands += "};"
